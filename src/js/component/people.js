@@ -43,6 +43,7 @@ export const Characters = () => {
 
   return (
     <div className="text-center bg-dark d-flex flex-wrap justify-content-around">
+      <div className="carrusel">
       {characters.map((people, index) => (
         <div className="card text-white bg-dark mb-3" style={{ maxWidth: "18rem" }} key={index}>
           {people.uid && (
@@ -56,7 +57,7 @@ export const Characters = () => {
           )}
           <div className="card-body">
             <h5 className="card-title">{people.name}</h5>
-            <button type="button" className="btn btn-warning" onClick={() => openModal(people)}>
+            <button data-bs-toggle="modal" data-bs-target="#staticBackdrop" type="button" className="btn btn-warning" onClick={() => openModal(people)}>
               VER MÁS
             </button>
             <FaHeart
@@ -66,15 +67,22 @@ export const Characters = () => {
           </div>
         </div>
       ))}
+      </div>
 
       {/* Modal */}
       {showModal && selectedCharacter && (
         <div className="modal-overlay" onClick={closeModal}>
-          <div className="modal">
+          <div className="modal fade">
             <span className="close" onClick={closeModal}>
               &times;
             </span>
-            <h2>{selectedCharacter.name}</h2>
+            <div className="modal-header">
+              <h2>{selectedCharacter.name}</h2>
+            </div>
+            <div className="modal-body">
+              <h3>{selectedCharacter.height}</h3>
+              <p>Lorem ipsum</p>
+            </div>
             {/* Agrega aquí la información adicional del personaje que deseas mostrar en el modal */}
           </div>
         </div>

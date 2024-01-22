@@ -16,7 +16,17 @@
   }
 
   .card{
-    border: 1px solid rgb(255, 193, 7)
+    border: 1px solid rgb(255, 193, 7);
+    min-width: 350px;
+    margin: 5px;
+    border-radius: 5px;
+  }
+
+
+  .carrusel {
+    display: flex;
+    overflow-x:scroll ;
+   
   }
 
   
