@@ -42,7 +42,7 @@ export const Characters = () => {
   };
 
   return (
-    <div className="text-center bg-dark d-flex flex-wrap justify-content-around">
+    <div className="text-center carrusel bg-dark d-flex flex-wrap justify-content-around">
       <div className="carrusel">
       {characters.map((people, index) => (
         <div className="card text-white bg-dark mb-3" style={{ maxWidth: "18rem" }} key={index}>

@@ -26,7 +26,11 @@
   .carrusel {
     display: flex;
     overflow-x:scroll ;
-   
+    width: 100vw;
+  }
+
+  .scroll-container{
+    width: 100vw;
   }
 
   
