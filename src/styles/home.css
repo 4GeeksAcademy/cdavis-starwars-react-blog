@@ -1,0 +1,22 @@
+/* En tu archivo de estilos (por ejemplo, home.css) */
+
+/* Estilo para el corazón lleno */
+.heart-icon {
+    color: red; /* Color del corazón lleno */
+    margin-left: 20px;
+  }
+  
+  /* Estilo para el corazón vacío */
+  .heart-icon-empty {
+    color: gray; /* Color del corazón vacío */
+  }
+
+  h2{
+    margin-bottom: 0 !important;
+  }
+
+  .card{
+    border: 1px solid rgb(255, 193, 7)
+  }
+
+  
