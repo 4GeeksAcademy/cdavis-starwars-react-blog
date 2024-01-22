@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from "react";
 import "../../styles/home.css";
-import { FaHeart } from "react-icons/fa";
-import "../../styles/modal.css"; // Agrega estilos de modal.css (crea un archivo de estilo para el modal)
+import { FaHeart } from "react-icons/fa"; // Importa el ícono del corazón
 
 export const Characters = () => {
   const [characters, setCharacters] = useState([]);
   const [favorites, setFavorites] = useState([]);
-  const [showModal, setShowModal] = useState(false);
-  const [selectedCharacter, setSelectedCharacter] = useState(null);
 
   const getCharacters = async () => {
     const API_URL = "https://www.swapi.tech/api/people";
@@ -31,16 +28,6 @@ export const Characters = () => {
 
   const isFavorite = (character) => favorites.some((fav) => fav.uid === character.uid);
 
-  const openModal = (character) => {
-    setShowModal(true);
-    setSelectedCharacter(character);
-  };
-
-  const closeModal = () => {
-    setShowModal(false);
-    setSelectedCharacter(null);
-  };
-
   return (
     <div className="text-center bg-dark d-flex flex-wrap justify-content-around">
       {characters.map((people, index) => (
@@ -52,13 +39,13 @@ export const Characters = () => {
                 className="card-img-top"
                 alt={`Image of ${people.name}`}
               />
+            
             </>
           )}
           <div className="card-body">
             <h5 className="card-title">{people.name}</h5>
-            <button type="button" className="btn btn-warning" onClick={() => openModal(people)}>
-              VER MÁS
-            </button>
+            <button type="button" className="btn btn-warning">VER MÁS</button>
+            {/* Corazón que cambia de color según el estado */}
             <FaHeart
               className={`heart-icon ${isFavorite(people) ? "heart-icon-filled" : "heart-icon-empty"}`}
               onClick={() => (isFavorite(people) ? removeFromFavorites(people) : addToFavorites(people))}
@@ -66,20 +53,7 @@ export const Characters = () => {
           </div>
         </div>
       ))}
-
-      {/* Modal */}
-      {showModal && selectedCharacter && (
-        <div className="modal-overlay" onClick={closeModal}>
-          <div className="modal">
-            <span className="close" onClick={closeModal}>
-              &times;
-            </span>
-            <h2>{selectedCharacter.name}</h2>
-            {/* Agrega aquí la información adicional del personaje que deseas mostrar en el modal */}
-          </div>
-        </div>
-      )}
-
+      
       {/* Lista de favoritos */}
       <div className="text-center mt-5">
         <h2>Favorites</h2>
