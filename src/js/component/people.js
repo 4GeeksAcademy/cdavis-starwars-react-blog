@@ -1,29 +1,31 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import "../../styles/home.css";
 import { Link } from "react-router-dom"; // Asegúrate de importar Link desde 'react-router-dom'
 import { FaHeart } from "react-icons/fa";
+import { Context } from "../store/appContext";
+
 
 export const Characters = () => {
-
-  const [characters, setCharacters] = useState([]);
+  const {store, actions} = useContext(Context);
+  //const [characters, setCharacters] = useState([]);
   const [favorites, setFavorites] = useState([]);
   const openNewTab = (uid) => {
     window.open(`/CharacterDetails/${uid}`, '_blank');
   };
 
-  const getCharacters = async () => {
-    const API_URL = "https://www.swapi.tech/api/people";
-    const response = await fetch(API_URL);
-    const data = await response.json();
-    setCharacters(data.results);
-  };
+  console.log(store)
 
   useEffect(() => {
-    getCharacters();
+    //getCharacters();
+    actions.getCharacters()
   }, []);
 
   const addToFavorites = (character) => {
     setFavorites([...favorites, character]);
+    //const store = getStore()
+    //setStore({
+      //favorites: [...store.favorites, character]
+    //})
   };
 
   const removeFromFavorites = (character) => {
@@ -38,7 +40,7 @@ export const Characters = () => {
   return (
     <div className="text-center carrusel bg-dark d-flex flex-wrap justify-content-around">
       <div className="carrusel">
-      {characters.map((people, index) => (
+      {store.characters.map((people, index) => (
         <div className="card text-white bg-dark mb-3" style={{ maxWidth: "18rem" }} key={index}>
           {people.uid && (
             <>
@@ -55,7 +57,7 @@ export const Characters = () => {
               <button
                 type="button"
                 className="btn btn-warning"
-                onClick={() => openNewTab(people.uid)}
+                //onClick={() => openNewTab(people.uid)}
               >
                 VER MÁS
               </button>

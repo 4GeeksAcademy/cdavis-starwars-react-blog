@@ -11,8 +11,9 @@
     color: gray; /* Color del corazón vacío */
   }
 
-  h2{
+  h2, p{
     margin-bottom: 0 !important;
+    color: rgb(255, 193, 7);;
   }
 
   .card{
