@@ -29,7 +29,8 @@ export const Planets = () => {
   const isFavorite = (planets) => favorites.some((fav) => fav.uid === planets.uid);
 
   return (
-    <div className="text-center bg-dark d-flex flex-wrap justify-content-around">
+    <div className="text-center carrusel bg-dark d-flex flex-wrap justify-content-around">
+      <div className="carrusel">
       {planets.map((planets, index) => (
         <div className="card text-white bg-dark mb-3" style={{ maxWidth: "18rem" }} key={index}>
           {planets.uid && (
@@ -53,14 +54,17 @@ export const Planets = () => {
           </div>
         </div>
       ))}
-      
-      {/* Lista de favoritos */}
+      </div>
       <div className="text-center mt-5">
         <h2>Favorites</h2>
         {favorites.map((fav, index) => (
           <p key={index}>{fav.name}</p>
         ))}
       </div>
+      
+      
+      
+      
     </div>
   );
 };

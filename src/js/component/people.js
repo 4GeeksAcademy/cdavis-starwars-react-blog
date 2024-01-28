@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
 import "../../styles/home.css";
+import { Link } from "react-router-dom"; // Asegúrate de importar Link desde 'react-router-dom'
 import { FaHeart } from "react-icons/fa";
-import "../../styles/modal.css"; // Agrega estilos de modal.css (crea un archivo de estilo para el modal)
 
 export const Characters = () => {
+
   const [characters, setCharacters] = useState([]);
   const [favorites, setFavorites] = useState([]);
-  const [showModal, setShowModal] = useState(false);
-  const [selectedCharacter, setSelectedCharacter] = useState(null);
+  const openNewTab = (uid) => {
+    window.open(`/CharacterDetails/${uid}`, '_blank');
+  };
 
   const getCharacters = async () => {
     const API_URL = "https://www.swapi.tech/api/people";
@@ -30,16 +32,8 @@ export const Characters = () => {
   };
 
   const isFavorite = (character) => favorites.some((fav) => fav.uid === character.uid);
-
-  const openModal = (character) => {
-    setShowModal(true);
-    setSelectedCharacter(character);
-  };
-
-  const closeModal = () => {
-    setShowModal(false);
-    setSelectedCharacter(null);
-  };
+  
+  
 
   return (
     <div className="text-center carrusel bg-dark d-flex flex-wrap justify-content-around">
@@ -57,9 +51,15 @@ export const Characters = () => {
           )}
           <div className="card-body">
             <h5 className="card-title">{people.name}</h5>
-            <button data-bs-toggle="modal" data-bs-target="#staticBackdrop" type="button" className="btn btn-warning" onClick={() => openModal(people)}>
-              VER MÁS
-            </button>
+            <Link to={`/CharacterDetails/${people.uid}`}>
+              <button
+                type="button"
+                className="btn btn-warning"
+                onClick={() => openNewTab(people.uid)}
+              >
+                VER MÁS
+              </button>
+            </Link>
             <FaHeart
               className={`heart-icon ${isFavorite(people) ? "heart-icon-filled" : "heart-icon-empty"}`}
               onClick={() => (isFavorite(people) ? removeFromFavorites(people) : addToFavorites(people))}
@@ -69,26 +69,6 @@ export const Characters = () => {
       ))}
       </div>
 
-      {/* Modal */}
-      {showModal && selectedCharacter && (
-        <div className="modal-overlay" onClick={closeModal}>
-          <div className="modal fade">
-            <span className="close" onClick={closeModal}>
-              &times;
-            </span>
-            <div className="modal-header">
-              <h2>{selectedCharacter.name}</h2>
-            </div>
-            <div className="modal-body">
-              <h3>{selectedCharacter.height}</h3>
-              <p>Lorem ipsum</p>
-            </div>
-            {/* Agrega aquí la información adicional del personaje que deseas mostrar en el modal */}
-          </div>
-        </div>
-      )}
-
-      {/* Lista de favoritos */}
       <div className="text-center mt-5">
         <h2>Favorites</h2>
         {favorites.map((fav, index) => (

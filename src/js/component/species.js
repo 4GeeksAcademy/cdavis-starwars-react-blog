@@ -29,7 +29,8 @@ export const Species = () => {
   const isFavorite = (species) => favorites.some((fav) => fav.uid === species.uid);
 
   return (
-    <div className="text-center bg-dark d-flex flex-wrap justify-content-around">
+    <div className="text-center carrusel bg-dark d-flex flex-wrap justify-content-around">
+      <div className="carrusel">
       {species.map((species, index) => (
         <div className="card text-white bg-dark mb-3" style={{ maxWidth: "18rem" }} key={index}>
           {species.uid && (
@@ -53,6 +54,7 @@ export const Species = () => {
           </div>
         </div>
       ))}
+      </div>
       
       {/* Lista de favoritos */}
       <div className="text-center mt-5">
