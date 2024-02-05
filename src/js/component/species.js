@@ -46,23 +46,13 @@ export const Species = () => {
           <div className="card-body">
             <h5 className="card-title">{species.name}</h5>
             
-            {/* Corazón que cambia de color según el estado */}
-            <FaHeart
-              className={`heart-icon ${isFavorite(species) ? "heart-icon-filled" : "heart-icon-empty"}`}
-              onClick={() => (isFavorite(species) ? removeFromFavorites(species) : addToFavorites(species))}
-            />
+            
           </div>
         </div>
       ))}
       </div>
       
-      {/* Lista de favoritos */}
-      <div className="text-center mt-5">
-        <h2>Favorites</h2>
-        {favorites.map((fav, index) => (
-          <p key={index}>{fav.name}</p>
-        ))}
-      </div>
+      
     </div>
   );
 };

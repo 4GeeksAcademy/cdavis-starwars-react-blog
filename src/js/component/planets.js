@@ -46,21 +46,12 @@ export const Planets = () => {
           <div className="card-body">
             <h5 className="card-title">{planets.name}</h5>
             
-            {/* Corazón que cambia de color según el estado */}
-            <FaHeart
-              className={`heart-icon ${isFavorite(planets) ? "heart-icon-filled" : "heart-icon-empty"}`}
-              onClick={() => (isFavorite(planets) ? removeFromFavorites(planets) : addToFavorites(planets))}
-            />
+           
           </div>
         </div>
       ))}
       </div>
-      <div className="text-center mt-5">
-        <h2>Favorites</h2>
-        {favorites.map((fav, index) => (
-          <p key={index}>{fav.name}</p>
-        ))}
-      </div>
+      
       
       
       
