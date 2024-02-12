@@ -8,16 +8,17 @@ export const Characters = () => {
   const { store, actions } = useContext(Context);
   const [favorites, setFavorites] = useState([]);
 
-  const openNewTab = (uid) => {
-    window.open(`/CharacterDetails/${uid}`, '_blank');
-  };
-
   useEffect(() => {
     actions.getCharacters();
-  }, []);
+    setFavorites(store.favorites); // Actualizar los favoritos al cargar los personajes
+  }, [store.favorites]); // Agregar store.favorites como dependencia para actualizar cuando cambie
 
   const addToFavorites = (character) => {
-    setFavorites([...favorites, character]);
+    // Verificar si el personaje ya está en favoritos
+    const isAlreadyFavorite = favorites.some((fav) => fav.uid === character.uid);
+    if (!isAlreadyFavorite) {
+      setFavorites([...favorites, character]);
+    }
   };
 
   const removeFromFavorites = (character) => {
@@ -25,7 +26,9 @@ export const Characters = () => {
     setFavorites(updatedFavorites);
   };
 
-  const isFavorite = (character) => favorites.some((fav) => fav.uid === character.uid);
+  const isFavorite = (character) => {
+    return favorites.some((fav) => fav.uid === character.uid);
+  };
 
   return (
     <div className="text-center carrusel bg-dark d-flex flex-wrap justify-content-around">
@@ -39,28 +42,22 @@ export const Characters = () => {
                   className="card-img-top"
                   alt={`Image of ${people.name}`}
                 />
+                <div className="card-body">
+                  <h5 className="card-title">{people.name}</h5>
+                  <Link to={`/CharacterDetails/${people.uid}`}>
+                    <button type="button" className="btn btn-warning">
+                      VER MÁS
+                    </button>
+                  </Link>
+                  
+                  <FaHeart
+                    className={`heart-icon ${isFavorite(people) ? "heart-icon-filled" : "heart-icon-empty"}`}
+                    onClick={() => (isFavorite(people) ? actions.removeFromFavorites(people) : actions.addToFavorites(people) ? "heart-icon-filled" : "heart-icon-empty")}
+                  />
+                </div>
               </>
             )}
-            <div className="card-body">
-              <h5 className="card-title">{people.name}</h5>
-              <Link to={`/CharacterDetails/${people.uid}`}>
-                <button type="button" className="btn btn-warning">
-                  VER MÁS
-                </button>
-              </Link>
-              <FaHeart
-                className={`heart-icon ${isFavorite(people) ? "heart-icon-filled" : "heart-icon-empty"}`}
-                onClick={() => (isFavorite(people) ? removeFromFavorites(people) : addToFavorites(people))}
-              />
-            </div>
           </div>
-        ))}
-      </div>
-
-      <div className="text-center mt-5">
-        <h2>Favorites</h2>
-        {favorites.map((fav, index) => (
-          <p key={index}>{fav.name}</p>
         ))}
       </div>
     </div>
